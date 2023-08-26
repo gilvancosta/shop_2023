@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class ProductRegister {
+class ProductRegisterModel {
   final String id;
   final String title;
   final String description;
   final double price;
   final String imageUrl;
   bool isFavorite;
-  ProductRegister({
+  ProductRegisterModel({
     required this.id,
     required this.title,
     required this.description,

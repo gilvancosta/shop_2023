@@ -12,11 +12,11 @@ sealed class MyAppTheme {
   );
 
   static ThemeData themeData = ThemeData(
-    useMaterial3: true,
-    // colorScheme: ColorScheme.fromSwatch().copyWith(primary: ConstantsColors.primaryColor, secondary: ConstantsColors.secondaryColor),
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    // useMaterial3: true,
+    colorScheme: ColorScheme.fromSwatch().copyWith(primary: ConstantsColors.primaryColor, secondary: ConstantsColors.secondaryColor),
+    // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
 
-  /*   appBarTheme: const AppBarTheme(
+    appBarTheme: const AppBarTheme(
       centerTitle: true,
       iconTheme: IconThemeData(color: ConstantsColors.brow),
       backgroundColor: ConstantsColors.primaryColor,
@@ -27,7 +27,6 @@ sealed class MyAppTheme {
         fontFamily: ConstantsFonts.fontFamilyTheme,
       ),
     ),
- */
 
 /*     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -39,9 +38,7 @@ sealed class MyAppTheme {
       errorBorder: defaultInputBorder.copyWith(borderSide: const BorderSide(color: ConstantsColors.red)),
     ), */
 
-
-
- /*    elevatedButtonTheme: ElevatedButtonThemeData(
+    /*    elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         foregroundColor: Colors.white,
         backgroundColor: ConstantsColors.brow,
@@ -51,17 +48,11 @@ sealed class MyAppTheme {
       ),
     ), */
 
-
-
     textTheme: ThemeData.light().textTheme.copyWith(
           titleLarge: const TextStyle(fontSize: 20, fontFamily: ConstantsFonts.fontFamilyText),
         ),
 
-
     canvasColor: ConstantsColors.myCanvasColor,
     fontFamily: ConstantsFonts.fontFamilyTheme,
-
-
-    
   );
 }
