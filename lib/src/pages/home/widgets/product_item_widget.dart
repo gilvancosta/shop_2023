@@ -9,7 +9,7 @@ class ProductItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productRegister = Provider.of<ProductRegisterModel>(context);
+    final productRegister = Provider.of<ProductRegisterModel>(context, listen: false);
     //  final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
@@ -17,15 +17,17 @@ class ProductItemWidget extends StatelessWidget {
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: IconButton(
-            onPressed: () {
-              productRegister.toggleFavoriteStatus();
-            },
-            icon: Icon(
-              productRegister.isFavorite ? Icons.favorite : Icons.favorite_border,
-              //color: Theme.of(context).colorScheme.secondary,
+          leading: Consumer<ProductRegisterModel>(
+            builder: (ctx, productRegister2, _) => IconButton(
+              onPressed: () {
+                productRegister2.toggleFavoriteStatus();
+              },
+              icon: Icon(
+                productRegister2.isFavorite ? Icons.favorite : Icons.favorite_border,
+                //color: Theme.of(context).colorScheme.secondary,
+              ),
+              color: Theme.of(context).colorScheme.secondary,
             ),
-            color: Theme.of(context).colorScheme.secondary,
           ),
           title: Text(
             productRegister.title,

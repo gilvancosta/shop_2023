@@ -7,21 +7,29 @@ import 'package:shop_2023/src/models/product_register_model.dart';
 import 'package:shop_2023/src/pages/home/widgets/product_item_widget.dart';
 
 class GridviewProductsWidget extends StatelessWidget {
-  const GridviewProductsWidget({super.key});
+  final bool showFavoriteOnly;
 
-
-
+  const GridviewProductsWidget({
+    Key? key,
+    required this.showFavoriteOnly,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductList>(context);
-    final List<ProductRegisterModel> loadedProducts = provider.items;
+
+      final List<ProductRegisterModel> loadedProducts = showFavoriteOnly ? provider.favoriteItems : provider.items;
+
+
+  
 
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       itemCount: loadedProducts.length,
-      itemBuilder: (ctx, i) => ChangeNotifierProvider(
-        create: (c) => loadedProducts[i],
+      itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
+        // create: (c) => loadedProducts[i],
+        value: loadedProducts[i],
+
         child: const ProductItemWidget(),
       ),
       // itemBuilder: (context, index) => Text(loadedProducts[index].title),
