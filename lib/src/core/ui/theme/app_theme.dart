@@ -23,7 +23,7 @@ sealed class MyAppTheme {
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.w500,
         fontSize: 18,
-        color: Colors.black,
+        color: Colors.white,
         fontFamily: ConstantsFonts.fontFamilyTheme,
       ),
     ),

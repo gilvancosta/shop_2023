@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class ProductRegisterModel {
+import 'package:flutter/material.dart';
+
+class ProductRegisterModel  with ChangeNotifier{
   final String id;
   final String title;
   final String description;
@@ -17,5 +19,6 @@ class ProductRegisterModel {
 
   void toggleFavoriteStatus() {
     isFavorite = !isFavorite;
+    notifyListeners();
   }
 }
