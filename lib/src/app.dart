@@ -9,9 +9,6 @@ import 'package:shop_2023/src/core/utls/app_routes.dart';
 import 'package:shop_2023/src/pages/home/home_page.dart';
 import 'package:shop_2023/src/pages/product/products_detail_page.dart';
 
-import 'core/providers/counter_provider.dart';
-import 'pages/counter/counter_page.dart';
-
 class MyApp extends StatefulWidget {
   final String title;
   const MyApp({
