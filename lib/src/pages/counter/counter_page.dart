@@ -21,7 +21,7 @@ class _CounterPageState extends State<CounterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Counter Page'),
+            const Text('Counter Page Teste'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [

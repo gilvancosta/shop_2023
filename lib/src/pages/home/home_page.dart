@@ -1,8 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shop_2023/src/core/providers/product_list.dart';
+
 import 'package:shop_2023/src/pages/home/widgets/gridview_products_widget.dart';
 
 enum FilterOptions {

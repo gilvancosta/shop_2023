@@ -1,13 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/core/providers/product_list.dart';
+import 'package:shop_2023/src/pages/product/controller/product_controller.dart';
 
 import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
 import 'package:shop_2023/src/core/utls/app_routes.dart';
 
 import 'package:shop_2023/src/pages/home/home_page.dart';
 import 'package:shop_2023/src/pages/product/products_detail_page.dart';
+
+import 'core/providers/counter_provider.dart';
+import 'pages/counter/counter_page.dart';
 
 class MyApp extends StatefulWidget {
   final String title;
@@ -24,15 +27,18 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (ctx) => ProductList(),
+      //  return CounterProvider(
+      create: (ctx) => ProductController(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Vamos Cozinhar?',
         theme: MyAppTheme.themeData,
         initialRoute: AppRoutes.home,
+        // initialRoute: AppRoutes.counter,
         routes: {
           AppRoutes.home: (ctx) => HomePageApp(title: widget.title),
           AppRoutes.productDetail: (ctx) => const ProductsDetailPage(),
+          // AppRoutes.counter: (ctx) => const CounterPage(),
         },
 
         onGenerateRoute: (settings) {

@@ -30,7 +30,7 @@ class ProductItemWidget extends StatelessWidget {
             ),
           ),
           title: Text(
-            productRegister.title,
+            productRegister.name,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
@@ -45,10 +45,8 @@ class ProductItemWidget extends StatelessWidget {
         ),
         child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                AppRoutes.productDetail,
-                arguments: productRegister,
-              );
+              Navigator.of(context).pushNamed(AppRoutes.productDetail, arguments: productRegister);
+              // Navigator.of(context).pushNamed(AppRoutes.counter);
             },
             child: Image.network(
               productRegister.imageUrl,
