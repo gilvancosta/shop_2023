@@ -10,6 +10,11 @@ class ProductController with ChangeNotifier {
 
   List<ProductRegisterModel> get favoriteItems => _items.where((prod) => prod.isFavorite).toList();
 
+  int get itemsCount {
+    return _items.length;
+  }
+
+
 /*  
   bool _showFavoriteOnly = false;
 

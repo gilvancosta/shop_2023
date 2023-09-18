@@ -1,8 +1,14 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:shop_2023/src/models/cart.dart';
 
 import 'package:shop_2023/src/pages/home/widgets/gridview_products_widget.dart';
+
+import '../../core/utls/app_routes.dart';
+import '../../core/widgets/app_drawer.dart';
+import 'widgets/badge_widget.dart';
 
 enum FilterOptions {
   favorite,
@@ -58,8 +64,21 @@ class _TabsScreenState extends State<HomePageApp> {
               // print('Valor: ${selectedValue.index}');
             },
           ),
+          Consumer<Cart>(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.cart);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+            builder: (ctx, cart, child) => BadgeWidget(
+              value: cart.itemsCound.toString(),
+              child: child!,
+            ),
+          ),
         ],
       ),
+      drawer: const AppDrawer(),
       body: GridviewProductsWidget(showFavoriteOnly: _showFavoriteOnly),
     );
   }

@@ -9,6 +9,13 @@ import 'package:shop_2023/src/core/utls/app_routes.dart';
 import 'package:shop_2023/src/pages/home/home_page.dart';
 import 'package:shop_2023/src/pages/product/products_detail_page.dart';
 
+import 'models/cart.dart';
+import 'models/order_list.dart';
+import 'pages/cart/cart_page.dart';
+import 'pages/order/orders_page.dart';
+import 'pages/product/product_page.dart';
+import 'pages/product_register/product_register_page.dart';
+
 class MyApp extends StatefulWidget {
   final String title;
   const MyApp({
@@ -23,9 +30,20 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (ctx) => ProductController(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (ctx) => OrderList(),
+        ),
+      ],
       //  return CounterProvider(
-      create: (ctx) => ProductController(),
+
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Vamos Cozinhar?',
@@ -35,7 +53,10 @@ class _MyAppState extends State<MyApp> {
         routes: {
           AppRoutes.home: (ctx) => HomePageApp(title: widget.title),
           AppRoutes.productDetail: (ctx) => const ProductsDetailPage(),
-          // AppRoutes.counter: (ctx) => const CounterPage(),
+          AppRoutes.cart: (ctx) => const CartPage(),
+          AppRoutes.orders: (ctx) => const OrdersPage(),
+          AppRoutes.product: (ctx) => const ProductPage(),
+          AppRoutes.productRegister: (ctx) => const ProductRegisterPage(),
         },
 
         onGenerateRoute: (settings) {

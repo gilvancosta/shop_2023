@@ -4,13 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:shop_2023/src/core/utls/app_routes.dart';
 import 'package:shop_2023/src/models/product_register_model.dart';
 
+import '../../../models/cart.dart';
+
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
     final productRegister = Provider.of<ProductRegisterModel>(context, listen: false);
-    //  final cart = Provider.of<Cart>(context, listen: false);
+    final cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -35,7 +37,22 @@ class ProductItemWidget extends StatelessWidget {
           ),
           trailing: IconButton(
             onPressed: () {
-              print('Cart');
+              // Scaffold.of(context).openDrawer();
+              cart.addItem(productRegister);
+              ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: const Text('Added item to cart!'),
+                  duration: const Duration(seconds: 2),
+                  action: SnackBarAction(
+                      label: 'DESFAZER',
+                      onPressed: () {
+                        cart.removeSingleItem(productRegister.id);
+                      }),
+                ),
+              );
+
+              //  ScaffoldMessenger.of(context).hideCurrentSnackBar();
             },
             icon: Icon(
               Icons.shopping_cart,
