@@ -7,8 +7,8 @@ import '../../core/widgets/app_drawer.dart';
 import '../../models/product_list_model.dart';
 import 'widgets/product_ListTile_widget.dart';
 
-class ProductPage extends StatelessWidget {
-  const ProductPage({super.key});
+class ProductListPage extends StatelessWidget {
+  const ProductListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ProductPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro Produto'),
+        title: const Text('Catálogo Produto'),
         actions: [
           IconButton(
             onPressed: () {

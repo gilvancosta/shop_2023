@@ -7,13 +7,13 @@ import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
 import 'package:shop_2023/src/core/utls/app_routes.dart';
 
 import 'package:shop_2023/src/pages/home/home_page.dart';
-import 'package:shop_2023/src/pages/product/products_detail_page.dart';
+import 'package:shop_2023/src/pages/product_detail/products_detail_page.dart';
 
 import 'models/cart_model.dart';
 import 'models/order_list_model.dart';
 import 'pages/cart/cart_page.dart';
 import 'pages/order/orders_page.dart';
-import 'pages/product/product_page.dart';
+import 'pages/product_list/product_list_page.dart';
 import 'pages/product_register/product_register_page.dart';
 
 class MyApp extends StatefulWidget {
@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
           AppRoutes.productDetail: (ctx) => const ProductsDetailPage(),
           AppRoutes.cart: (ctx) => const CartPage(),
           AppRoutes.orders: (ctx) => const OrdersPage(),
-          AppRoutes.product: (ctx) => const ProductPage(),
+          AppRoutes.product: (ctx) => const ProductListPage(),
           AppRoutes.productRegister: (ctx) => const ProductRegisterPage(),
         },
 

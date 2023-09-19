@@ -4,12 +4,12 @@ import 'package:provider/provider.dart';
 
 import 'package:shop_2023/src/models/product_list_model.dart';
 import 'package:shop_2023/src/models/product_model.dart';
-import 'package:shop_2023/src/pages/home/widgets/product_item_widget.dart';
+import 'package:shop_2023/src/pages/home/widgets/product_gridtile_widget.dart';
 
-class GridviewProductsWidget extends StatelessWidget {
+class ProductsGridViewWidget extends StatelessWidget {
   final bool showFavoriteOnly;
 
-  const GridviewProductsWidget({
+  const ProductsGridViewWidget({
     Key? key,
     required this.showFavoriteOnly,
   }) : super(key: key);
@@ -30,7 +30,7 @@ class GridviewProductsWidget extends StatelessWidget {
         // create: (c) => loadedProducts[i],
         value: loadedProducts[i],
 
-        child: const ProductItemWidget(),
+        child: const ProductGridTileWidget(),
       ),
       // itemBuilder: (context, index) => Text(loadedProducts[index].title),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

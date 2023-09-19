@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import 'package:shop_2023/src/pages/home/widgets/gridview_products_widget.dart';
+import 'package:shop_2023/src/pages/home/widgets/products_gridview_widget.dart';
 import '../../core/utls/app_routes.dart';
 import '../../core/widgets/app_drawer.dart';
 import '../../models/cart_model.dart';
@@ -78,7 +78,7 @@ class _TabsScreenState extends State<HomePageApp> {
         ],
       ),
       drawer: const AppDrawer(),
-      body: GridviewProductsWidget(showFavoriteOnly: _showFavoriteOnly),
+      body: ProductsGridViewWidget(showFavoriteOnly: _showFavoriteOnly),
     );
   }
 }
