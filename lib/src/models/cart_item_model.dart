@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-class CartItem {
+class CartItemModel {
   final String id;
   final String productId;
   final String name;
   final int quantity;
   final double price;
   
-  CartItem({
+  CartItemModel({
     required this.id,
     required this.productId,
     required this.name,

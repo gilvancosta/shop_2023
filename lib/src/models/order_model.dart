@@ -1,12 +1,12 @@
-import 'package:shop_2023/src/models/cart_item.dart';
+import 'package:shop_2023/src/models/cart_item_model.dart';
 
-class Order {
+class OrderModel {
   final String id;
   final double total;
-  final List<CartItem> products;
+  final List<CartItemModel> products;
   final DateTime date;
 
-  Order({
+  OrderModel({
     required this.id,
     required this.total,
     required this.products,

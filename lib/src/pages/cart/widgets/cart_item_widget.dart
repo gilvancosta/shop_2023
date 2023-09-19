@@ -1,11 +1,12 @@
 import 'package:provider/provider.dart';
-
-import '../../../models/cart.dart';
-import '../../../models/cart_item.dart';
 import 'package:flutter/material.dart';
 
+import '../../../models/cart_model.dart';
+import '../../../models/cart_item_model.dart';
+
+
 class CartItemWidget extends StatelessWidget {
-  final CartItem cartItem;
+  final CartItemModel cartItem;
 
   const CartItemWidget(this.cartItem, {Key? key}) : super(key: key);
 
@@ -15,7 +16,7 @@ class CartItemWidget extends StatelessWidget {
       key: ValueKey(cartItem.id),
       direction: DismissDirection.endToStart,
       background: Container(
-        color: Theme.of(context).errorColor,
+        color: Theme.of(context).colorScheme.error,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         margin: const EdgeInsets.symmetric(
@@ -52,7 +53,7 @@ class CartItemWidget extends StatelessWidget {
         );
       },
       onDismissed: (_) {
-        Provider.of<Cart>(
+        Provider.of<CartModel>(
           context,
           listen: false,
         ).removeItem(cartItem.productId);

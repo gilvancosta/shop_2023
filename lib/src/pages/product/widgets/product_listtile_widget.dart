@@ -2,10 +2,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/utls/app_routes.dart';
-import '../../../models/product_register_model.dart';
+import '../../../models/product_model.dart';
+
 
 class ProductListTileWidget extends StatelessWidget {
-  final ProductRegisterModel product;
+  final ProductModel product;
 
   const ProductListTileWidget({
     Key? key,

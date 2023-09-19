@@ -1,26 +1,24 @@
-
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:shop_2023/src/models/cart_item.dart';
-import 'package:shop_2023/src/models/product_register_model.dart';
+import 'package:shop_2023/src/models/cart_item_model.dart';
+import 'package:shop_2023/src/models/product_model.dart';
 
-class Cart with ChangeNotifier {
-  final Map<String, CartItem> _items = {};
+class CartModel with ChangeNotifier {
+  final Map<String, CartItemModel> _items = {};
 
-  Map<String, CartItem> get items => {..._items};
+  Map<String, CartItemModel> get items => {..._items};
 
   void removeSingleItem(String productId) {
     if (!_items.containsKey(productId)) {
       return;
-    } 
-    
+    }
+
     if (_items[productId]!.quantity > 1) {
       _items.update(
         productId,
-        (existingCartItem) => CartItem(
+        (existingCartItem) => CartItemModel(
           id: existingCartItem.id,
-            productId: existingCartItem.productId,
+          productId: existingCartItem.productId,
           name: existingCartItem.name,
           quantity: existingCartItem.quantity - 1,
           price: existingCartItem.price,
@@ -29,13 +27,9 @@ class Cart with ChangeNotifier {
     } else {
       _items.remove(productId);
     }
-    
 
-
-   
     notifyListeners();
   }
-
 
   void removeItem(String productId) {
     _items.remove(productId);
@@ -46,18 +40,18 @@ class Cart with ChangeNotifier {
     _items.clear();
     notifyListeners();
   }
- 
+
   int get itemsCound {
     return _items.length;
   }
 
-  void addItem(ProductRegisterModel  product ) {
+  void addItem(ProductModel product) {
     if (_items.containsKey(product.id)) {
       _items.update(
         product.id,
-        (existingCartItem) => CartItem(
+        (existingCartItem) => CartItemModel(
           id: existingCartItem.id,
-           productId: existingCartItem.productId,
+          productId: existingCartItem.productId,
           name: existingCartItem.name,
           quantity: existingCartItem.quantity + 1,
           price: existingCartItem.price,
@@ -66,7 +60,7 @@ class Cart with ChangeNotifier {
     } else {
       _items.putIfAbsent(
         product.id,
-        () => CartItem(
+        () => CartItemModel(
           id: Random().nextDouble().toString(),
           productId: product.id,
           name: product.name,
@@ -78,9 +72,6 @@ class Cart with ChangeNotifier {
     notifyListeners();
   }
 
-
-
-
   double get totalAmount {
     var total = 0.0;
     _items.forEach((key, cartItem) {
@@ -88,5 +79,4 @@ class Cart with ChangeNotifier {
     });
     return total;
   }
-
 }

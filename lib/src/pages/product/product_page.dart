@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/utls/app_routes.dart';
 import '../../core/widgets/app_drawer.dart';
 
-import 'controller/product_controller.dart';
+import '../../models/product_list_model.dart';
 import 'widgets/product_ListTile_widget.dart';
 
 class ProductPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductController productRegister = Provider.of(context);
+    final ProductListModel productList = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -30,10 +30,10 @@ class ProductPage extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(8),
         child: ListView.builder(
-            itemCount: productRegister.itemsCount,
+            itemCount: productList.itemsCount,
             itemBuilder: (ctx, i) {
               return Column(
-                children: [ProductListTileWidget(product: productRegister.items[i]), const Divider()],
+                children: [ProductListTileWidget(product: productList.items[i]), const Divider()],
               );
             }),
       ),

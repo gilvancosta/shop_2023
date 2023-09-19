@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/pages/product/controller/product_controller.dart';
+import 'package:shop_2023/src/models/product_list_model.dart';
 
 import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
 import 'package:shop_2023/src/core/utls/app_routes.dart';
@@ -9,8 +9,8 @@ import 'package:shop_2023/src/core/utls/app_routes.dart';
 import 'package:shop_2023/src/pages/home/home_page.dart';
 import 'package:shop_2023/src/pages/product/products_detail_page.dart';
 
-import 'models/cart.dart';
-import 'models/order_list.dart';
+import 'models/cart_model.dart';
+import 'models/order_list_model.dart';
 import 'pages/cart/cart_page.dart';
 import 'pages/order/orders_page.dart';
 import 'pages/product/product_page.dart';
@@ -33,13 +33,13 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (ctx) => ProductController(),
+          create: (ctx) => ProductListModel(),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => Cart(),
+          create: (ctx) => CartModel(),
         ),
         ChangeNotifierProvider(
-          create: (ctx) => OrderList(),
+          create: (ctx) => OrderListModel(),
         ),
       ],
       //  return CounterProvider(

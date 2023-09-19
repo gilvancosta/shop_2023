@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:shop_2023/src/models/product_register_model.dart';
+import 'package:shop_2023/src/models/product_model.dart';
 
 class ProductsDetailPage extends StatelessWidget {
   const ProductsDetailPage({super.key});
@@ -8,7 +8,7 @@ class ProductsDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   
-   final ProductRegisterModel productRegister = ModalRoute.of(context)!.settings.arguments as ProductRegisterModel;
+   final ProductModel productRegister = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
 
     return Scaffold(

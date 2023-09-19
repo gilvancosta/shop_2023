@@ -2,24 +2,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_2023/src/core/utls/app_routes.dart';
-import 'package:shop_2023/src/models/product_register_model.dart';
+import 'package:shop_2023/src/models/product_model.dart';
 
-import '../../../models/cart.dart';
+import '../../../models/cart_model.dart';
+
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final productRegister = Provider.of<ProductRegisterModel>(context, listen: false);
-    final cart = Provider.of<Cart>(context, listen: false);
+    final product = Provider.of<ProductModel>(context, listen: false);
+    final cart = Provider.of<CartModel>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: Consumer<ProductRegisterModel>(
+          leading: Consumer<ProductModel>(
             builder: (ctx, productRegister2, _) => IconButton(
               onPressed: () {
                 productRegister2.toggleFavoriteStatus();
@@ -32,13 +33,13 @@ class ProductItemWidget extends StatelessWidget {
             ),
           ),
           title: Text(
-            productRegister.name,
+            product.name,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
             onPressed: () {
               // Scaffold.of(context).openDrawer();
-              cart.addItem(productRegister);
+              cart.addItem(product);
               ScaffoldMessenger.of(context).hideCurrentMaterialBanner();
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -47,7 +48,7 @@ class ProductItemWidget extends StatelessWidget {
                   action: SnackBarAction(
                       label: 'DESFAZER',
                       onPressed: () {
-                        cart.removeSingleItem(productRegister.id);
+                        cart.removeSingleItem(product.id);
                       }),
                 ),
               );
@@ -62,11 +63,11 @@ class ProductItemWidget extends StatelessWidget {
         ),
         child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.productDetail, arguments: productRegister);
+              Navigator.of(context).pushNamed(AppRoutes.productDetail, arguments: product);
               // Navigator.of(context).pushNamed(AppRoutes.counter);
             },
             child: Image.network(
-              productRegister.imageUrl,
+              product.imageUrl,
               fit: BoxFit.cover,
             )),
       ),

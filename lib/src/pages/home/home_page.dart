@@ -1,13 +1,12 @@
 // ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/models/cart.dart';
+
 
 import 'package:shop_2023/src/pages/home/widgets/gridview_products_widget.dart';
-
 import '../../core/utls/app_routes.dart';
 import '../../core/widgets/app_drawer.dart';
+import '../../models/cart_model.dart';
 import 'widgets/badge_widget.dart';
 
 enum FilterOptions {
@@ -64,7 +63,7 @@ class _TabsScreenState extends State<HomePageApp> {
               // print('Valor: ${selectedValue.index}');
             },
           ),
-          Consumer<Cart>(
+          Consumer<CartModel>(
             child: IconButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.cart);
