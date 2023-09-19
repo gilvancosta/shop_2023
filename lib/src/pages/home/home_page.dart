@@ -7,7 +7,8 @@ import 'package:shop_2023/src/pages/home/widgets/products_gridview_widget.dart';
 import '../../core/utls/app_routes.dart';
 import '../../core/widgets/app_drawer.dart';
 import '../../models/cart_model.dart';
-import 'widgets/badge_widget.dart';
+import 'widgets/iconcart_stack_widget.dart';
+
 
 enum FilterOptions {
   favorite,
@@ -70,7 +71,7 @@ class _TabsScreenState extends State<HomePageApp> {
               },
               icon: const Icon(Icons.shopping_cart),
             ),
-            builder: (ctx, cart, child) => BadgeWidget(
+            builder: (ctx, cart, child) => IconCartStackWidget(
               value: cart.itemsCound.toString(),
               child: child!,
             ),
