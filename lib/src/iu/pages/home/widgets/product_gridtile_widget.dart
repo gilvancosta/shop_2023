@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/core/utls/app_routes.dart';
-import 'package:shop_2023/src/models/product_model.dart';
+import 'package:shop_2023/src/iu/app_routes.dart';
+import 'package:shop_2023/src/domain/entities/product_model.dart';
 
-import '../../../models/cart_model.dart';
+import '../../../../domain/entities/cart_model.dart';
 
 
 class ProductGridTileWidget extends StatelessWidget {

@@ -1,8 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/cart_model.dart';
-import '../../../models/cart_item_model.dart';
+import '../../../../domain/entities/cart_model.dart';
+import '../../../../domain/entities/cart_item_model.dart';
 
 
 class CartItemWidget extends StatelessWidget {

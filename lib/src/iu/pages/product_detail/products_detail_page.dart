@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:shop_2023/src/models/product_model.dart';
+import 'package:shop_2023/src/domain/entities/product_model.dart';
 
 class ProductsDetailPage extends StatelessWidget {
   const ProductsDetailPage({super.key});

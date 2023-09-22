@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/widgets/app_drawer.dart';
+import '../../widgets/app_drawer.dart';
 
-import '../../models/order_list_model.dart';
+import '../../../domain/entities/order_list_model.dart';
 import 'widgets/order_widget.dart';
 
 class OrdersPage extends StatelessWidget {

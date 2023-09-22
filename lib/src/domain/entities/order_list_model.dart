@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:shop_2023/src/models/order_model.dart';
+import 'package:shop_2023/src/domain/entities/order_model.dart';
 
 import 'cart_model.dart';
 

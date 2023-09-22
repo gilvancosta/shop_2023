@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import '../../models/cart_model.dart';
+import '../../../domain/entities/cart_model.dart';
 
-import '../../models/order_list_model.dart';
+import '../../../domain/entities/order_list_model.dart';
 import 'widgets/cart_item_widget.dart';
 
 class CartPage extends StatelessWidget {

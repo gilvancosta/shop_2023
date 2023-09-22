@@ -1,8 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import '../../../core/utls/app_routes.dart';
-import '../../../models/product_model.dart';
+import '../../../app_routes.dart';
+import '../../../../domain/entities/product_model.dart';
 
 
 class ProductListTileWidget extends StatelessWidget {

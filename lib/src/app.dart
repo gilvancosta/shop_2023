@@ -1,20 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/models/product_list_model.dart';
+import 'package:shop_2023/src/domain/entities/product_list_model.dart';
 
 import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
-import 'package:shop_2023/src/core/utls/app_routes.dart';
+import 'package:shop_2023/src/iu/app_routes.dart';
 
-import 'package:shop_2023/src/pages/home/home_page.dart';
-import 'package:shop_2023/src/pages/product_detail/products_detail_page.dart';
+import 'package:shop_2023/src/iu/pages/home/home_page.dart';
+import 'package:shop_2023/src/iu/pages/product_detail/products_detail_page.dart';
 
-import 'models/cart_model.dart';
-import 'models/order_list_model.dart';
-import 'pages/cart/cart_page.dart';
-import 'pages/order/orders_page.dart';
-import 'pages/product_list/product_list_page.dart';
-import 'pages/product_register/product_register_page.dart';
+import 'domain/entities/cart_model.dart';
+import 'domain/entities/order_list_model.dart';
+import 'iu/pages/cart/cart_page.dart';
+import 'iu/pages/order/orders_page.dart';
+import 'iu/pages/product_list/product_list_page.dart';
+import 'iu/pages/product_register/product_register_page.dart';
 
 class MyApp extends StatefulWidget {
   final String title;

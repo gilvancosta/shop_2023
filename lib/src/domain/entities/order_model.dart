@@ -1,4 +1,4 @@
-import 'package:shop_2023/src/models/cart_item_model.dart';
+import 'package:shop_2023/src/domain/entities/cart_item_model.dart';
 
 class OrderModel {
   final String id;

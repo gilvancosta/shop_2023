@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import 'package:shop_2023/src/pages/home/widgets/products_gridview_widget.dart';
-import '../../core/utls/app_routes.dart';
-import '../../core/widgets/app_drawer.dart';
-import '../../models/cart_model.dart';
+import 'package:shop_2023/src/iu/pages/home/widgets/products_gridview_widget.dart';
+import '../../app_routes.dart';
+import '../../widgets/app_drawer.dart';
+import '../../../domain/entities/cart_model.dart';
 import 'widgets/iconcart_stack_widget.dart';
 
 
