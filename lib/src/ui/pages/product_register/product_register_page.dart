@@ -112,8 +112,8 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
                   FocusScope.of(context).requestFocus(_priceFocus);
                 },
                 onSaved: (name) => _formData['name'] = name ?? '',
-                validator: (_name) {
-                  final name = _name ?? '';
+                validator: (name1) {
+                  final name = name1 ?? '';
 
                   if (name.trim().isEmpty) {
                     return 'Nome é obrigatório.';
@@ -139,8 +139,8 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
                   FocusScope.of(context).requestFocus(_descriptionFocus);
                 },
                 onSaved: (price) => _formData['price'] = double.parse(price ?? '0'),
-                validator: (_price) {
-                  final priceString = _price ?? '';
+                validator: (price1) {
+                  final priceString = price1 ?? '';
                   final price = double.tryParse(priceString) ?? -1;
 
                   if (price <= 0) {
@@ -157,8 +157,8 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
                 keyboardType: TextInputType.multiline,
                 maxLines: 3,
                 onSaved: (description) => _formData['description'] = description ?? '',
-                validator: (_description) {
-                  final description = _description ?? '';
+                validator: (description1) {
+                  final description = description1 ?? '';
 
                   if (description.trim().isEmpty) {
                     return 'Descrição é obrigatória.';
@@ -183,8 +183,8 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
                       controller: _imageUrlController,
                       onFieldSubmitted: (_) => _submitForm(),
                       onSaved: (imageUrl) => _formData['imageUrl'] = imageUrl ?? '',
-                      validator: (_imageUrl) {
-                        final imageUrl = _imageUrl ?? '';
+                      validator: (imageUrl1) {
+                        final imageUrl = imageUrl1 ?? '';
 
                         if (!isValidImageUrl(imageUrl)) {
                           return 'Informe uma Url válida!';
