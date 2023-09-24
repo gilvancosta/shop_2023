@@ -1,12 +1,12 @@
-import 'package:shop_2023/src/domain/entities/cart_item_model.dart';
+import 'package:shop_2023/src/domain/entities/cart_item_entity.dart';
 
-class OrderModel {
+class OrderEntity {
   final String id;
   final double total;
-  final List<CartItemModel> products;
+  final List<CartItemEntity> products;
   final DateTime date;
 
-  OrderModel({
+  OrderEntity({
     required this.id,
     required this.total,
     required this.products,

@@ -4,9 +4,10 @@ import 'package:provider/provider.dart';
 
 
 import 'package:shop_2023/src/iu/pages/home/widgets/products_gridview_widget.dart';
+import '../../../domain/entities/cart_entity.dart';
 import '../../app_routes.dart';
 import '../../widgets/app_drawer.dart';
-import '../../../domain/entities/cart_model.dart';
+
 import 'widgets/iconcart_stack_widget.dart';
 
 
@@ -64,7 +65,7 @@ class _TabsScreenState extends State<HomePageApp> {
               // print('Valor: ${selectedValue.index}');
             },
           ),
-          Consumer<CartModel>(
+          Consumer<CartEntity>(
             child: IconButton(
               onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.cart);

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:shop_2023/src/domain/entities/product_list_model.dart';
-import 'package:shop_2023/src/domain/entities/product_model.dart';
+import 'package:shop_2023/src/domain/entities/product_list_entity.dart';
+import 'package:shop_2023/src/domain/entities/product_entity.dart';
 import 'package:shop_2023/src/iu/pages/home/widgets/product_gridtile_widget.dart';
 
 class ProductsGridViewWidget extends StatelessWidget {
@@ -16,9 +16,9 @@ class ProductsGridViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProductListModel>(context);
+    final provider = Provider.of<ProductListEntity>(context);
 
-      final List<ProductModel> loadedProducts = showFavoriteOnly ? provider.favoriteItems : provider.items;
+      final List<ProductEntity> loadedProducts = showFavoriteOnly ? provider.favoriteItems : provider.items;
 
 
   

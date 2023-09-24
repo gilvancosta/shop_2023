@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 
 import '../../../app_routes.dart';
-import '../../../../domain/entities/product_model.dart';
+import '../../../../domain/entities/product_entity.dart';
 
 
 class ProductListTileWidget extends StatelessWidget {
-  final ProductModel product;
+  final ProductEntity product;
 
   const ProductListTileWidget({
     Key? key,

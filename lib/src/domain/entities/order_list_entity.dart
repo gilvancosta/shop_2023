@@ -2,14 +2,15 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import 'package:shop_2023/src/domain/entities/order_model.dart';
+import 'package:shop_2023/src/domain/entities/order_entity.dart';
 
-import 'cart_model.dart';
+import 'cart_entity.dart';
 
-class OrderListModel with ChangeNotifier {
-  final List<OrderModel> _items = [];
 
-  List<OrderModel> get items {
+class OrderListEntity with ChangeNotifier {
+  final List<OrderEntity> _items = [];
+
+  List<OrderEntity> get items {
     return [..._items];
   }
 
@@ -17,10 +18,10 @@ class OrderListModel with ChangeNotifier {
     return _items.length;
   }
 
-  void addOrder(CartModel cart) {
+  void addOrder(CartEntity cart) {
     _items.insert(
       0,
-      OrderModel(
+      OrderEntity(
         id: Random().nextDouble().toString(),
         total: cart.totalAmount,
         date: DateTime.now(),

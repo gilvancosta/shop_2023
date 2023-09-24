@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../../app_routes.dart';
 import '../../widgets/app_drawer.dart';
 
-import '../../../domain/entities/product_list_model.dart';
+import '../../../domain/entities/product_list_entity.dart';
 import 'widgets/product_ListTile_widget.dart';
 
 class ProductListPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class ProductListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ProductListModel productList = Provider.of(context);
+    final ProductListEntity productList = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(

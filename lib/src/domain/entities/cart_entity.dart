@@ -1,12 +1,14 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:shop_2023/src/domain/entities/cart_item_model.dart';
-import 'package:shop_2023/src/domain/entities/product_model.dart';
 
-class CartModel with ChangeNotifier {
-  final Map<String, CartItemModel> _items = {};
 
-  Map<String, CartItemModel> get items => {..._items};
+import 'cart_item_entity.dart';
+import 'product_entity.dart';
+
+class CartEntity with ChangeNotifier {
+  final Map<String, CartItemEntity> _items = {};
+
+  Map<String, CartItemEntity> get items => {..._items};
 
   void removeSingleItem(String productId) {
     if (!_items.containsKey(productId)) {
@@ -16,7 +18,7 @@ class CartModel with ChangeNotifier {
     if (_items[productId]!.quantity > 1) {
       _items.update(
         productId,
-        (existingCartItem) => CartItemModel(
+        (existingCartItem) => CartItemEntity(
           id: existingCartItem.id,
           productId: existingCartItem.productId,
           name: existingCartItem.name,
@@ -45,11 +47,11 @@ class CartModel with ChangeNotifier {
     return _items.length;
   }
 
-  void addItem(ProductModel product) {
+  void addItem(ProductEntity product) {
     if (_items.containsKey(product.id)) {
       _items.update(
         product.id,
-        (existingCartItem) => CartItemModel(
+        (existingCartItem) => CartItemEntity(
           id: existingCartItem.id,
           productId: existingCartItem.productId,
           name: existingCartItem.name,
@@ -60,7 +62,7 @@ class CartModel with ChangeNotifier {
     } else {
       _items.putIfAbsent(
         product.id,
-        () => CartItemModel(
+        () => CartItemEntity(
           id: Random().nextDouble().toString(),
           productId: product.id,
           name: product.name,

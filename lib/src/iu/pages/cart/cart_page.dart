@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import '../../../domain/entities/cart_model.dart';
+import '../../../domain/entities/cart_entity.dart';
 
-import '../../../domain/entities/order_list_model.dart';
+import '../../../domain/entities/order_list_entity.dart';
 import 'widgets/cart_item_widget.dart';
 
 class CartPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final CartModel cart = Provider.of(context);
+    final CartEntity cart = Provider.of(context);
     final items = cart.items.values.toList();
 
     return Scaffold(
@@ -50,7 +50,7 @@ class CartPage extends StatelessWidget {
                   const Spacer(),
                   TextButton(
                     onPressed: () {
-                      Provider.of<OrderListModel>(
+                      Provider.of<OrderListEntity>(
                         context,
                         listen: false,
                       ).addOrder(cart);

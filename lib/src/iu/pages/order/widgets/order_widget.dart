@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../../../domain/entities/order_model.dart';
+import '../../../../domain/entities/order_entity.dart';
 
 class OrderWidget extends StatefulWidget {
-  final OrderModel order;
+  final OrderEntity order;
 
   const OrderWidget({
     Key? key,

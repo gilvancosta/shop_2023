@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../widgets/app_drawer.dart';
 
-import '../../../domain/entities/order_list_model.dart';
+import '../../../domain/entities/order_list_entity.dart';
 import 'widgets/order_widget.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -11,7 +11,7 @@ class OrdersPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final OrderListModel orders = Provider.of(context);
+    final OrderListEntity orders = Provider.of(context);
 
     return Scaffold(
       appBar: AppBar(

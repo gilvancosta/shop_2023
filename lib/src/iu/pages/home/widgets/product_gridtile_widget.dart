@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_2023/src/iu/app_routes.dart';
-import 'package:shop_2023/src/domain/entities/product_model.dart';
+import 'package:shop_2023/src/domain/entities/product_entity.dart';
 
-import '../../../../domain/entities/cart_model.dart';
+import '../../../../domain/entities/cart_entity.dart';
 
 
 class ProductGridTileWidget extends StatelessWidget {
@@ -12,15 +12,15 @@ class ProductGridTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<ProductModel>(context, listen: false);
-    final cart = Provider.of<CartModel>(context, listen: false);
+    final product = Provider.of<ProductEntity>(context, listen: false);
+    final cart = Provider.of<CartEntity>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
         footer: GridTileBar(
           backgroundColor: Colors.black87,
-          leading: Consumer<ProductModel>(
+          leading: Consumer<ProductEntity>(
             builder: (ctx, productRegister2, _) => IconButton(
               onPressed: () {
                 productRegister2.toggleFavoriteStatus();

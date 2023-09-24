@@ -1,12 +1,13 @@
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../domain/entities/cart_model.dart';
-import '../../../../domain/entities/cart_item_model.dart';
+
+import '../../../../domain/entities/cart_entity.dart';
+import '../../../../domain/entities/cart_item_entity.dart';
 
 
 class CartItemWidget extends StatelessWidget {
-  final CartItemModel cartItem;
+  final CartItemEntity cartItem;
 
   const CartItemWidget(this.cartItem, {Key? key}) : super(key: key);
 
@@ -53,7 +54,7 @@ class CartItemWidget extends StatelessWidget {
         );
       },
       onDismissed: (_) {
-        Provider.of<CartModel>(
+        Provider.of<CartEntity>(
           context,
           listen: false,
         ).removeItem(cartItem.productId);
