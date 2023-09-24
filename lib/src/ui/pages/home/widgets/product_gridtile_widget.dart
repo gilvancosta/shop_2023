@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_2023/src/iu/app_routes.dart';
+import 'package:shop_2023/src/ui/app_routes.dart';
 import 'package:shop_2023/src/domain/entities/product_entity.dart';
 
 import '../../../../domain/entities/cart_entity.dart';

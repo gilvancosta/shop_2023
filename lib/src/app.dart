@@ -5,18 +5,18 @@ import 'package:shop_2023/src/domain/entities/cart_entity.dart';
 
 
 import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
-import 'package:shop_2023/src/iu/app_routes.dart';
+import 'package:shop_2023/src/ui/app_routes.dart';
 
-import 'package:shop_2023/src/iu/pages/home/home_page.dart';
-import 'package:shop_2023/src/iu/pages/product_detail/products_detail_page.dart';
+import 'package:shop_2023/src/ui/pages/home/home_page.dart';
+import 'package:shop_2023/src/ui/pages/product_detail/products_detail_page.dart';
 
 
 import 'domain/entities/order_list_entity.dart';
 import 'domain/entities/product_list_entity.dart';
-import 'iu/pages/cart/cart_page.dart';
-import 'iu/pages/order/orders_page.dart';
-import 'iu/pages/product_list/product_list_page.dart';
-import 'iu/pages/product_register/product_register_page.dart';
+import 'ui/pages/cart/cart_page.dart';
+import 'ui/pages/order/orders_page.dart';
+import 'ui/pages/product_list/product_list_page.dart';
+import 'ui/pages/product_register/product_register_page.dart';
 
 class MyApp extends StatefulWidget {
   final String title;

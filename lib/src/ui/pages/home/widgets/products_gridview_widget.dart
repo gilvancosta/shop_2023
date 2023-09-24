@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 import 'package:shop_2023/src/domain/entities/product_list_entity.dart';
 import 'package:shop_2023/src/domain/entities/product_entity.dart';
-import 'package:shop_2023/src/iu/pages/home/widgets/product_gridtile_widget.dart';
+import 'package:shop_2023/src/ui/pages/home/widgets/product_gridtile_widget.dart';
 
 class ProductsGridViewWidget extends StatelessWidget {
   final bool showFavoriteOnly;

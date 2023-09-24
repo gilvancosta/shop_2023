@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import 'package:shop_2023/src/iu/pages/home/widgets/products_gridview_widget.dart';
+import 'package:shop_2023/src/ui/pages/home/widgets/products_gridview_widget.dart';
 import '../../../domain/entities/cart_entity.dart';
 import '../../app_routes.dart';
 import '../../widgets/app_drawer.dart';
