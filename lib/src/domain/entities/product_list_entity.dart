@@ -1,11 +1,16 @@
+// ignore_for_file: avoid_print
+
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:shop_2023/src/core/data/dummy_product.dart';
 import 'package:shop_2023/src/domain/entities/product_entity.dart';
+import 'package:http/http.dart' as http;
 
 class ProductListEntity with ChangeNotifier {
   final List<ProductEntity> _items = dummyProducts;
+  final _baseUrl = 'https://shop-2023-3b069-default-rtdb.firebaseio.com';
 
   List<ProductEntity> get items => [..._items];
   List<ProductEntity> get favoriteItems => _items.where((prod) => prod.isFavorite).toList();
@@ -17,6 +22,8 @@ class ProductListEntity with ChangeNotifier {
   void saveProduct(Map<String, Object> data) {
     bool hasId = data['id'] != null;
 
+    print('Antes de postar 1');
+
     final product = ProductEntity(
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
       name: data['name'] as String,
@@ -24,6 +31,8 @@ class ProductListEntity with ChangeNotifier {
       price: data['price'] as double,
       imageUrl: data['imageUrl'] as String,
     );
+
+    print('Depois de postar 1');
 
     if (hasId) {
       updateProduct(product);
@@ -33,6 +42,19 @@ class ProductListEntity with ChangeNotifier {
   }
 
   void addProduct(ProductEntity product) {
+    print('Antes de postar 2');
+
+    http.post(Uri.parse('$_baseUrl/product.json'),
+        body: jsonEncode({
+          'name': product.name,
+          'description': product.description,
+          'price': product.price,
+          'imageUrl': product.imageUrl,
+          'isFavorite': product.isFavorite,
+        }));
+
+    print('Depois de postar 2');
+
     _items.add(product);
     notifyListeners();
   }
