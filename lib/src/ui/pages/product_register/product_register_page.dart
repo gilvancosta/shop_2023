@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../../domain/entities/product_entity.dart';
 import '../../../domain/entities/product_list_entity.dart';
+import '../../mixins/snack_bar_mixin.dart';
 
 class ProductRegisterPage extends StatefulWidget {
   const ProductRegisterPage({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class ProductRegisterPage extends StatefulWidget {
   State<ProductRegisterPage> createState() => _ProductFormPageState();
 }
 
-class _ProductFormPageState extends State<ProductRegisterPage> {
+class _ProductFormPageState extends State<ProductRegisterPage> with SnackBarMixin {
   final _priceFocus = FocusNode();
   final _descriptionFocus = FocusNode();
 
@@ -22,6 +23,8 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
 
   final _formKey = GlobalKey<FormState>();
   final _formData = <String, Object>{};
+
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -78,12 +81,35 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
 
     _formKey.currentState?.save();
 
+    setState(() => _isLoading = true);
+
     Provider.of<ProductListEntity>(
       context,
       listen: false,
-    ).saveProduct(_formData);
+    ).saveProduct(_formData).catchError((error) {
+      return showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          title: const Text('Ocorreu um erro!'),
+          // content: Text(error.toString()),
+          content: const Text('Ocorreu um erro ao salvar o produto!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Ok'),
+            ),
+          ],
+        ),
+      );
 
-    Navigator.of(context).pop();
+      // return showSnackBar(error, context: context, isError: true);
+    }).then((value) {
+      setState(() => _isLoading = false);
+
+      Navigator.of(context).pop();
+    });
   }
 
   @override
@@ -98,129 +124,134 @@ class _ProductFormPageState extends State<ProductRegisterPage> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Form(
-          key: _formKey,
-          child: ListView(
-            children: [
-              TextFormField(
-                initialValue: _formData['name']?.toString(),
-                decoration: const InputDecoration(labelText: 'Nome'),
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_priceFocus);
-                },
-                onSaved: (name) => _formData['name'] = name ?? '',
-                validator: (name1) {
-                  final name = name1 ?? '';
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Padding(
+              padding: const EdgeInsets.all(15),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                      initialValue: _formData['name']?.toString(),
+                      decoration: const InputDecoration(labelText: 'Nome'),
+                      textInputAction: TextInputAction.next,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_priceFocus);
+                      },
+                      onSaved: (name) => _formData['name'] = name ?? '',
+                      validator: (name1) {
+                        final name = name1 ?? '';
 
-                  if (name.trim().isEmpty) {
-                    return 'Nome é obrigatório.';
-                  }
+                        if (name.trim().isEmpty) {
+                          return 'Nome é obrigatório.';
+                        }
 
-                  if (name.trim().length < 3) {
-                    return 'Nome precisa no mínimo de 3 letras.';
-                  }
-
-                  return null;
-                },
-              ),
-              TextFormField(
-                initialValue: _formData['price']?.toString(),
-                decoration: const InputDecoration(labelText: 'Preço'),
-                textInputAction: TextInputAction.next,
-                focusNode: _priceFocus,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                  signed: true,
-                ),
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_descriptionFocus);
-                },
-                onSaved: (price) => _formData['price'] = double.parse(price ?? '0'),
-                validator: (price1) {
-                  final priceString = price1 ?? '';
-                  final price = double.tryParse(priceString) ?? -1;
-
-                  if (price <= 0) {
-                    return 'Informe um preço válido.';
-                  }
-
-                  return null;
-                },
-              ),
-              TextFormField(
-                initialValue: _formData['description']?.toString(),
-                decoration: const InputDecoration(labelText: 'Descrição'),
-                focusNode: _descriptionFocus,
-                keyboardType: TextInputType.multiline,
-                maxLines: 3,
-                onSaved: (description) => _formData['description'] = description ?? '',
-                validator: (description1) {
-                  final description = description1 ?? '';
-
-                  if (description.trim().isEmpty) {
-                    return 'Descrição é obrigatória.';
-                  }
-
-                  if (description.trim().length < 10) {
-                    return 'Descrição precisa no mínimo de 10 letras.';
-                  }
-
-                  return null;
-                },
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      decoration: const InputDecoration(labelText: 'Url da Imagem'),
-                      keyboardType: TextInputType.url,
-                      textInputAction: TextInputAction.done,
-                      focusNode: _imageUrlFocus,
-                      controller: _imageUrlController,
-                      onFieldSubmitted: (_) => _submitForm(),
-                      onSaved: (imageUrl) => _formData['imageUrl'] = imageUrl ?? '',
-                      validator: (imageUrl1) {
-                        final imageUrl = imageUrl1 ?? '';
-
-                        if (!isValidImageUrl(imageUrl)) {
-                          return 'Informe uma Url válida!';
+                        if (name.trim().length < 3) {
+                          return 'Nome precisa no mínimo de 3 letras.';
                         }
 
                         return null;
                       },
                     ),
-                  ),
-                  Container(
-                    height: 100,
-                    width: 100,
-                    margin: const EdgeInsets.only(
-                      top: 10,
-                      left: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.grey,
-                        width: 1,
+                    TextFormField(
+                      initialValue: _formData['price']?.toString(),
+                      decoration: const InputDecoration(labelText: 'Preço'),
+                      textInputAction: TextInputAction.next,
+                      focusNode: _priceFocus,
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                        signed: true,
                       ),
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_descriptionFocus);
+                      },
+                      onSaved: (price) => _formData['price'] = double.parse(price ?? '0'),
+                      validator: (price1) {
+                        final priceString = price1 ?? '';
+                        final price = double.tryParse(priceString) ?? -1;
+
+                        if (price <= 0) {
+                          return 'Informe um preço válido.';
+                        }
+
+                        return null;
+                      },
                     ),
-                    alignment: Alignment.center,
-                    child: _imageUrlController.text.isEmpty
-                        ? const Text('Informe a Url')
-                        : FittedBox(
-                            fit: BoxFit.cover,
-                            child: Image.network(_imageUrlController.text),
+                    TextFormField(
+                      initialValue: _formData['description']?.toString(),
+                      decoration: const InputDecoration(labelText: 'Descrição'),
+                      focusNode: _descriptionFocus,
+                      keyboardType: TextInputType.multiline,
+                      maxLines: 3,
+                      onSaved: (description) => _formData['description'] = description ?? '',
+                      validator: (description1) {
+                        final description = description1 ?? '';
+
+                        if (description.trim().isEmpty) {
+                          return 'Descrição é obrigatória.';
+                        }
+
+                        if (description.trim().length < 10) {
+                          return 'Descrição precisa no mínimo de 10 letras.';
+                        }
+
+                        return null;
+                      },
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            decoration: const InputDecoration(labelText: 'Url da Imagem'),
+                            keyboardType: TextInputType.url,
+                            textInputAction: TextInputAction.done,
+                            focusNode: _imageUrlFocus,
+                            controller: _imageUrlController,
+                            onFieldSubmitted: (_) => _submitForm(),
+                            onSaved: (imageUrl) => _formData['imageUrl'] = imageUrl ?? '',
+                            validator: (imageUrl1) {
+                              final imageUrl = imageUrl1 ?? '';
+
+                              if (!isValidImageUrl(imageUrl)) {
+                                return 'Informe uma Url válida!';
+                              }
+
+                              return null;
+                            },
                           ),
-                  ),
-                ],
+                        ),
+                        Container(
+                          height: 100,
+                          width: 100,
+                          margin: const EdgeInsets.only(
+                            top: 10,
+                            left: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.grey,
+                              width: 1,
+                            ),
+                          ),
+                          alignment: Alignment.center,
+                          child: _imageUrlController.text.isEmpty
+                              ? const Text('Informe a Url')
+                              : FittedBox(
+                                  // FittedBox para ajustar a imagem ao tamanho do container
+                                  fit: BoxFit.cover,
+                                  child: Image.network(_imageUrlController.text),
+                                ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }

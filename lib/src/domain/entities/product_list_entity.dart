@@ -19,10 +19,10 @@ class ProductListEntity with ChangeNotifier {
     return _items.length;
   }
 
-  void saveProduct(Map<String, Object> data) {
+  Future<void> saveProduct(Map<String, Object> data) {
     bool hasId = data['id'] != null;
 
-    print('Antes de postar 1');
+    // print('Antes de postar 1');
 
     final product = ProductEntity(
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
@@ -32,19 +32,19 @@ class ProductListEntity with ChangeNotifier {
       imageUrl: data['imageUrl'] as String,
     );
 
-    print('Depois de postar 1');
+    // print('Depois de postar 1');
 
     if (hasId) {
-      updateProduct(product);
+      return updateProduct(product);
     } else {
-      addProduct(product);
+      return addProduct(product);
     }
   }
 
-  void addProduct(ProductEntity product) {
-    print('Antes de postar 2');
+  Future<void> addProduct(ProductEntity product) {
+    //  print('Antes de postar 2');
 
-    http.post(Uri.parse('$_baseUrl/product.json'),
+    final futureResult = http.post(Uri.parse('$_baseUrl/products.json'),
         body: jsonEncode({
           'name': product.name,
           'description': product.description,
@@ -53,19 +53,32 @@ class ProductListEntity with ChangeNotifier {
           'isFavorite': product.isFavorite,
         }));
 
-    print('Depois de postar 2');
+    // print('Depois de postar 2');
 
-    _items.add(product);
-    notifyListeners();
+    return futureResult.then((response) {
+      final id = jsonDecode(response.body)['name'];
+      _items.add(ProductEntity(
+        id: id,
+        name: product.name,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        isFavorite: product.isFavorite,
+      ));
+
+      notifyListeners();
+    });
   }
 
-  void updateProduct(ProductEntity product) {
+  Future<void> updateProduct(ProductEntity product) {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
       _items[index] = product;
       notifyListeners();
     }
+
+    return Future.value();
   }
 
   void removeProduct(ProductEntity product) {
