@@ -10,6 +10,14 @@ import 'widgets/product_ListTile_widget.dart';
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
 
+  Future<void> _refreshProducts(BuildContext context) {
+    
+    return Provider.of<ProductListEntity>(
+      context,
+      listen: false,
+    ).loadProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     final ProductListEntity productList = Provider.of(context);
@@ -27,18 +35,21 @@ class ProductListPage extends StatelessWidget {
         ],
       ),
       drawer: const AppDrawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8),
-        child: ListView.builder(
-            itemCount: productList.itemsCount,
-            itemBuilder: (ctx, i) {
-              return Column(
-                children: [
-                  ProductListTileWidget(product: productList.items[i]),
-                  const Divider(),
-                ],
-              );
-            }),
+      body: RefreshIndicator(
+        onRefresh: () => _refreshProducts(context),
+        child: Padding(
+          padding: const EdgeInsets.all(8),
+          child: ListView.builder(
+              itemCount: productList.itemsCount,
+              itemBuilder: (ctx, i) {
+                return Column(
+                  children: [
+                    ProductListTileWidget(product: productList.items[i]),
+                    const Divider(),
+                  ],
+                );
+              }),
+        ),
       ),
     );
   }

@@ -9,9 +9,10 @@ import 'package:shop_2023/src/domain/entities/product_entity.dart';
 import 'package:http/http.dart' as http;
 
 import '../../core/constants/constants.dart';
+import '../../core/exceptions/http_exception.dart';
 
 class ProductListEntity with ChangeNotifier {
-  final List<ProductEntity> _items  = [];
+  final List<ProductEntity> _items = [];
 
   List<ProductEntity> get items => [..._items];
   List<ProductEntity> get favoriteItems => _items.where((prod) => prod.isFavorite).toList();
@@ -23,10 +24,13 @@ class ProductListEntity with ChangeNotifier {
   Future<void> loadProducts() async {
     _items.clear();
 
+    //  print('Antes de postar 1');
+
     final response = await http.get(
       Uri.parse('${Constants.productBaseUrl}.json'),
     );
 
+    // print('Depois de postar 1');
 
     if (response.body == 'null') return;
     Map<String, dynamic> data = jsonDecode(response.body);
@@ -93,26 +97,53 @@ class ProductListEntity with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateProduct(ProductEntity product) {
+  Future<void> updateProduct(ProductEntity product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
+      await http.patch(
+        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+        body: jsonEncode(
+          {
+            "name": product.name,
+            "description": product.description,
+            "price": product.price,
+            "imageUrl": product.imageUrl,
+          },
+        ),
+      );
+
       _items[index] = product;
       notifyListeners();
     }
-
-    return Future.value();
   }
 
-  void removeProduct(ProductEntity product) {
+  Future<void> removeProduct(ProductEntity product) async {
     int index = _items.indexWhere((p) => p.id == product.id);
 
     if (index >= 0) {
-      _items.removeWhere((p) => p.id == product.id);
+      final product = _items[index];
+      _items.remove(product);
       notifyListeners();
+
+      final response = await http.delete(
+        Uri.parse('${Constants.productBaseUrl}/${product.id}.json'),
+      );
+
+      if (response.statusCode >= 400) {
+        _items.insert(index, product);
+        notifyListeners();
+        throw HttpException(
+          msg: 'Não foi possível excluir o produto.',
+          statusCode: response.statusCode,
+        );
+      }
     }
   }
 }
+
+
+
 /*  
   bool _showFavoriteOnly = false;
 

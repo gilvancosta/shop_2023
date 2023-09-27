@@ -26,19 +26,19 @@ class HomePageApp extends StatefulWidget {
 
 class _TabsScreenState extends State<HomePageApp> {
   bool _showFavoriteOnly = false;
-  bool _isLoading = true;
+  bool _isLoading = false;
 
   @override
   void initState() {
     super.initState();
-    Provider.of<ProductListEntity>(
+         Provider.of<ProductListEntity>(
       context,
       listen: false,
-    ).loadProducts().then((value) {
-      setState(() {
-        _isLoading = false;
-      });
+    ).loadProducts().then((value) { 
+    setState(() {
+      _isLoading = false;
     });
+     });
   }
 
   @override
