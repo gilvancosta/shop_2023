@@ -2,14 +2,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import 'package:shop_2023/src/ui/pages/home/widgets/products_gridview_widget.dart';
 import '../../../domain/entities/cart_entity.dart';
+import '../../../domain/entities/product_list_entity.dart';
 import '../../app_routes.dart';
 import '../../widgets/app_drawer.dart';
 
 import 'widgets/iconcart_stack_widget.dart';
-
 
 enum FilterOptions {
   favorite,
@@ -27,9 +26,19 @@ class HomePageApp extends StatefulWidget {
 
 class _TabsScreenState extends State<HomePageApp> {
   bool _showFavoriteOnly = false;
+  bool _isLoading = true;
 
-  incrementCounter() {
-    setState(() {});
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ProductListEntity>(
+      context,
+      listen: false,
+    ).loadProducts().then((value) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -79,8 +88,8 @@ class _TabsScreenState extends State<HomePageApp> {
           ),
         ],
       ),
+      body: _isLoading ? const Center(child: CircularProgressIndicator()) : ProductsGridViewWidget(showFavoriteOnly: _showFavoriteOnly),
       drawer: const AppDrawer(),
-      body: ProductsGridViewWidget(showFavoriteOnly: _showFavoriteOnly),
     );
   }
 }

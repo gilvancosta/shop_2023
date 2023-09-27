@@ -18,10 +18,7 @@ class ProductsGridViewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductListEntity>(context);
 
-      final List<ProductEntity> loadedProducts = showFavoriteOnly ? provider.favoriteItems : provider.items;
-
-
-  
+    final List<ProductEntity> loadedProducts = showFavoriteOnly ? provider.favoriteItems : provider.items;
 
     return GridView.builder(
       padding: const EdgeInsets.all(10),
@@ -35,7 +32,7 @@ class ProductsGridViewWidget extends StatelessWidget {
       // itemBuilder: (context, index) => Text(loadedProducts[index].title),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
+        childAspectRatio: 3 / 3,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
       ),

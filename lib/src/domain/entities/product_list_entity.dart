@@ -4,19 +4,45 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:shop_2023/src/core/data/dummy_product.dart';
+
 import 'package:shop_2023/src/domain/entities/product_entity.dart';
 import 'package:http/http.dart' as http;
 
+import '../../core/constants/constants.dart';
+
 class ProductListEntity with ChangeNotifier {
-  final List<ProductEntity> _items = dummyProducts;
-  final _baseUrl = 'https://shop-2023-3b069-default-rtdb.firebaseio.com';
+  final List<ProductEntity> _items  = [];
 
   List<ProductEntity> get items => [..._items];
   List<ProductEntity> get favoriteItems => _items.where((prod) => prod.isFavorite).toList();
 
   int get itemsCount {
     return _items.length;
+  }
+
+  Future<void> loadProducts() async {
+    _items.clear();
+
+    final response = await http.get(
+      Uri.parse('${Constants.productBaseUrl}.json'),
+    );
+
+
+    if (response.body == 'null') return;
+    Map<String, dynamic> data = jsonDecode(response.body);
+    data.forEach((productId, productData) {
+      _items.add(
+        ProductEntity(
+          id: productId,
+          name: productData['name'],
+          description: productData['description'],
+          price: productData['price'],
+          imageUrl: productData['imageUrl'],
+          isFavorite: productData['isFavorite'],
+        ),
+      );
+    });
+    notifyListeners();
   }
 
   Future<void> saveProduct(Map<String, Object> data) {
@@ -41,10 +67,10 @@ class ProductListEntity with ChangeNotifier {
     }
   }
 
-  Future<void> addProduct(ProductEntity product) {
+  Future<void> addProduct(ProductEntity product) async {
     //  print('Antes de postar 2');
 
-    final futureResult = http.post(Uri.parse('$_baseUrl/products.json'),
+    final response = await http.post(Uri.parse('${Constants.productBaseUrl}.json'),
         body: jsonEncode({
           'name': product.name,
           'description': product.description,
@@ -55,19 +81,16 @@ class ProductListEntity with ChangeNotifier {
 
     // print('Depois de postar 2');
 
-    return futureResult.then((response) {
-      final id = jsonDecode(response.body)['name'];
-      _items.add(ProductEntity(
-        id: id,
-        name: product.name,
-        description: product.description,
-        price: product.price,
-        imageUrl: product.imageUrl,
-        isFavorite: product.isFavorite,
-      ));
-
-      notifyListeners();
-    });
+    final id = jsonDecode(response.body)['name'];
+    _items.add(ProductEntity(
+      id: id,
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      imageUrl: product.imageUrl,
+      isFavorite: product.isFavorite,
+    ));
+    notifyListeners();
   }
 
   Future<void> updateProduct(ProductEntity product) {

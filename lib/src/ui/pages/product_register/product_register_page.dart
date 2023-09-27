@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -72,7 +72,7 @@ class _ProductFormPageState extends State<ProductRegisterPage> with SnackBarMixi
     return isValidUrl && endsWithFile;
   }
 
-  void _submitForm() {
+  Future<void> _submitForm() async {
     final isValid = _formKey.currentState?.validate() ?? false;
 
     if (!isValid) {
@@ -83,11 +83,14 @@ class _ProductFormPageState extends State<ProductRegisterPage> with SnackBarMixi
 
     setState(() => _isLoading = true);
 
-    Provider.of<ProductListEntity>(
-      context,
-      listen: false,
-    ).saveProduct(_formData).catchError((error) {
-      return showDialog(
+    try {
+      await Provider.of<ProductListEntity>(
+        context,
+        listen: false,
+      ).saveProduct(_formData);
+      Navigator.of(context).pop();
+    } catch (error) {
+      showDialog<void>(
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Ocorreu um erro!'),
@@ -103,13 +106,10 @@ class _ProductFormPageState extends State<ProductRegisterPage> with SnackBarMixi
           ],
         ),
       );
-
-      // return showSnackBar(error, context: context, isError: true);
-    }).then((value) {
+    } finally {
       setState(() => _isLoading = false);
-
-      Navigator.of(context).pop();
-    });
+      //  Navigator.of(context).pop();
+    }
   }
 
   @override
@@ -238,13 +238,7 @@ class _ProductFormPageState extends State<ProductRegisterPage> with SnackBarMixi
                             ),
                           ),
                           alignment: Alignment.center,
-                          child: _imageUrlController.text.isEmpty
-                              ? const Text('Informe a Url')
-                              : FittedBox(
-                                  // FittedBox para ajustar a imagem ao tamanho do container
-                                  fit: BoxFit.cover,
-                                  child: Image.network(_imageUrlController.text),
-                                ),
+                          child: _imageUrlController.text.isEmpty ? const Text('Informe a Url') : Image.network(_imageUrlController.text),
                         ),
                       ],
                     ),
