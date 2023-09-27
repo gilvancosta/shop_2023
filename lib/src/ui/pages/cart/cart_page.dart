@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-
 import '../../../domain/entities/cart_entity.dart';
 
 import '../../../domain/entities/order_list_entity.dart';
@@ -48,17 +47,7 @@ class CartPage extends StatelessWidget {
                     ),
                   ),
                   const Spacer(),
-                  TextButton(
-                    onPressed: () {
-                      Provider.of<OrderListEntity>(
-                        context,
-                        listen: false,
-                      ).addOrder(cart);
-
-                      cart.clear();
-                    },
-                    child: const Text('COMPRAR'),
-                  ),
+                  CartButtonWidget(cart: cart),
                 ],
               ),
             ),
@@ -72,5 +61,42 @@ class CartPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class CartButtonWidget extends StatefulWidget {
+  const CartButtonWidget({
+    super.key,
+    required this.cart,
+  });
+
+  final CartEntity cart;
+
+  @override
+  State<CartButtonWidget> createState() => _CartButtonWidgetState();
+}
+
+class _CartButtonWidgetState extends State<CartButtonWidget> {
+  bool _isLoading = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _isLoading
+        ? const CircularProgressIndicator()
+        : TextButton(
+            onPressed: widget.cart.itemsCound == 0
+                ? null
+                : () async {
+                    setState(() => _isLoading = true);
+                    await Provider.of<OrderListEntity>(
+                      context,
+                      listen: false,
+                    ).addOrder(widget.cart);
+
+                    widget.cart.clear();
+                    setState(() => _isLoading = false);
+                  },
+            child: const Text('COMPRAR'),
+          );
   }
 }

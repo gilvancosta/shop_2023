@@ -23,7 +23,7 @@ class ProductGridTileWidget extends StatelessWidget {
           leading: Consumer<ProductEntity>(
             builder: (ctx, productRegister2, _) => IconButton(
               onPressed: () {
-                productRegister2.toggleFavoriteStatus();
+                productRegister2.toggleFavorite();
               },
               icon: Icon(
                 productRegister2.isFavorite ? Icons.favorite : Icons.favorite_border,
