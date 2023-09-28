@@ -22,7 +22,7 @@ class AuthPage extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: double.infinity,
             //  height: double.infinity,
             child: Column(
@@ -30,8 +30,8 @@ class AuthPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Container(
-                  margin:  const EdgeInsets.only(bottom: 20),
-                  padding:  const EdgeInsets.symmetric(
+                  margin: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 70,
                   ),
@@ -39,7 +39,7 @@ class AuthPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     color: Colors.deepOrange.shade900.withOpacity(0.8),
-                    boxShadow:  const [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 8,
                         color: Colors.black26,
@@ -47,7 +47,7 @@ class AuthPage extends StatelessWidget {
                       )
                     ],
                   ),
-                  child:  const Text(
+                  child: const Text(
                     'Minha Loja',
                     style: TextStyle(
                       fontSize: 45,
