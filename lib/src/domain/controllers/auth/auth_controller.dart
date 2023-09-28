@@ -7,7 +7,6 @@ import '../../../core/constants/constants.dart';
 import '../../../core/exceptions/auth_exception.dart';
 import '../../../data/store.dart';
 
-
 class AuthController with ChangeNotifier {
   // https://firebase.google.com/docs/reference/rest/auth?hl=en
 //  static const _url   = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${Constants.webApiKey}';
@@ -36,7 +35,7 @@ class AuthController with ChangeNotifier {
   }
 
   Future<void> _authenticate(String email, String password, String urlFragment) async {
-   final url = 'https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=${Constants.webApiKey}';
+    final url = 'https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=${Constants.webApiKey}';
     final response = await http.post(
       Uri.parse(url),
       body: jsonEncode({
@@ -119,7 +118,7 @@ class AuthController with ChangeNotifier {
   void _autoLogout() {
     _clearLogoutTimer();
     final timeToLogout = _expiryDate?.difference(DateTime.now()).inSeconds;
-    print(timeToLogout);
+  //  print('Tempo do token:  $timeToLogout');
     _logoutTimer = Timer(
       Duration(seconds: timeToLogout ?? 0),
       logout,

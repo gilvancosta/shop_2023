@@ -1,0 +1,29 @@
+{
+  "rules": {
+    "orders": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid",
+      },
+    },
+    "userFavorites": {
+    	"$uid": {
+      	".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid",
+      },
+    },
+    "products": {
+        ".write": "auth != null",
+        ".read": "auth != null",
+    }
+  }
+}
+
+
+
+{
+  "rules": {
+    ".read": "auth !=null",
+    ".write": "auth != null"
+  }
+}

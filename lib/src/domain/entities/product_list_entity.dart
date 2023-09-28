@@ -12,9 +12,9 @@ import '../../core/constants/constants.dart';
 import '../../core/exceptions/http_exception.dart';
 
 class ProductListEntity with ChangeNotifier {
-   final String _token;
+  final String _token;
   final String _userId;
-    List<ProductEntity> pItems = [];
+  List<ProductEntity> pItems = [];
 
   List<ProductEntity> get items => [...pItems];
   List<ProductEntity> get favoriteItems => pItems.where((prod) => prod.isFavorite).toList();
@@ -24,7 +24,6 @@ class ProductListEntity with ChangeNotifier {
     this._userId = '',
     this.pItems = const [],
   ]);
-
 
   int get itemsCount {
     return pItems.length;
@@ -63,7 +62,6 @@ class ProductListEntity with ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<void> saveProduct(Map<String, Object> data) {
     bool hasId = data['id'] != null;
 
@@ -74,6 +72,8 @@ class ProductListEntity with ChangeNotifier {
       price: data['price'] as double,
       imageUrl: data['imageUrl'] as String,
     );
+
+    // print('product ID: ${product.id}');
 
     if (hasId) {
       return updateProduct(product);
@@ -95,7 +95,12 @@ class ProductListEntity with ChangeNotifier {
       ),
     );
 
+    print('product ID: ${product.id}');
+
     final id = jsonDecode(response.body)['name'];
+
+    // print('DEPOIS ID: $id');
+
     pItems.add(ProductEntity(
       id: id,
       name: product.name,

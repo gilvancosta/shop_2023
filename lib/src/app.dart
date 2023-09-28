@@ -39,18 +39,25 @@ class _MyAppState extends State<MyApp> {
           create: (ctx) => AuthController(),
         ),
         ChangeNotifierProxyProvider<AuthController, ProductListEntity>(
-          create: (ctx) => ProductListEntity('','',[]),
+          create: (ctx) => ProductListEntity(),
           update:(context, value, previous) => ProductListEntity(
             value.token ?? '',
             value.userId ?? '',
             previous?.items ?? [],
           )
         ),
-        ChangeNotifierProvider(
-          create: (ctx) => CartEntity(),
+        ChangeNotifierProxyProvider<AuthController, OrderListEntity>(
+          create: (_) => OrderListEntity(),
+          update: (ctx, auth, previous) {
+            return OrderListEntity(
+              auth.token ?? '',
+              auth.userId ?? '',
+              previous?.items ?? [],
+            );
+          },
         ),
         ChangeNotifierProvider(
-          create: (ctx) => OrderListEntity(),
+          create: (ctx) => CartEntity(),
         ),
       ],
       //  return CounterProvider(
