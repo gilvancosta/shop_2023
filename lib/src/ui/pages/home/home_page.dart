@@ -51,9 +51,9 @@ class _TabsScreenState extends State<HomePageApp> {
         title: Text(widget.title),
         actions: [
           PopupMenuButton(
-            icon: const Icon(Icons.more_vert),
+            icon:  const Icon(Icons.more_vert),
             itemBuilder: (context) => [
-              const PopupMenuItem(value: FilterOptions.favorite, child: Text('Somente os Favoritos')),
+               const PopupMenuItem(value: FilterOptions.favorite, child: Text('Somente os Favoritos')),
               const PopupMenuItem(value: FilterOptions.all, child: Text('Todos')),
             ],
             onSelected: (FilterOptions selectedValue) {
@@ -79,7 +79,7 @@ class _TabsScreenState extends State<HomePageApp> {
               onPressed: () {
                 Navigator.of(context).pushNamed(AppRoutes.cart);
               },
-              icon: const Icon(Icons.shopping_cart),
+              icon:  const Icon(Icons.shopping_cart),
             ),
             builder: (ctx, cart, child) => IconCartStackWidget(
               value: cart.itemsCound.toString(),
@@ -89,7 +89,7 @@ class _TabsScreenState extends State<HomePageApp> {
         ],
       ),
       body: _isLoading ? const Center(child: CircularProgressIndicator()) : ProductsGridViewWidget(showFavoriteOnly: _showFavoriteOnly),
-      drawer: const AppDrawer(),
+      drawer:  const AppDrawer(),
     );
   }
 }

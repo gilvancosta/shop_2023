@@ -3,16 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_2023/src/domain/entities/cart_entity.dart';
 
-
 import 'package:shop_2023/src/core/ui/theme/app_theme.dart';
 import 'package:shop_2023/src/ui/app_routes.dart';
 
 import 'package:shop_2023/src/ui/pages/home/home_page.dart';
 import 'package:shop_2023/src/ui/pages/product_detail/products_detail_page.dart';
 
-
 import 'domain/entities/order_list_entity.dart';
 import 'domain/entities/product_list_entity.dart';
+import 'ui/pages/auth/auth_page.dart';
 import 'ui/pages/cart/cart_page.dart';
 import 'ui/pages/order/orders_page.dart';
 import 'ui/pages/product_list/product_list_page.dart';
@@ -50,9 +49,10 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'Vamos Cozinhar?',
         theme: MyAppTheme.themeData,
-        initialRoute: AppRoutes.home,
+        initialRoute: AppRoutes.auth,
         // initialRoute: AppRoutes.counter,
         routes: {
+          AppRoutes.auth: (ctx) => const AuthPage(),
           AppRoutes.home: (ctx) => HomePageApp(title: widget.title),
           AppRoutes.productDetail: (ctx) => const ProductsDetailPage(),
           AppRoutes.cart: (ctx) => const CartPage(),
