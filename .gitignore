@@ -47,3 +47,4 @@ app.*.map.json
 Z_CODIGO_BKP.md
 Z_INSTRUCOES.md
 Z_SHORTCUTs.md
+constants.dart
