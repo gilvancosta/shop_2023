@@ -63,14 +63,24 @@ class ProductGridTileWidget extends StatelessWidget {
           ),
         ),
         child: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pushNamed(AppRoutes.productDetail, arguments: product);
-              // Navigator.of(context).pushNamed(AppRoutes.counter);
-            },
-            child: Image.network(
-              product.imageUrl,
+          onTap: () {
+            Navigator.of(context).pushNamed(AppRoutes.productDetail, arguments: product);
+            // Navigator.of(context).pushNamed(AppRoutes.counter);
+          },
+          child: Hero(
+            tag: product.id,
+            child: FadeInImage(
+              placeholder: const AssetImage('assets/images/placeholder2.png'),
+              image: NetworkImage(product.imageUrl),
               fit: BoxFit.cover,
-            )),
+          
+              //Image.network(
+          
+              // product.imageUrl,
+              // fit: BoxFit.cover,
+            ),
+          ),
+        ),
       ),
     );
   }

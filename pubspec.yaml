@@ -28,8 +28,8 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/product-placeholder.png
-    
+    - assets/images/
+
   fonts:
     - family: Raleway
       fonts:

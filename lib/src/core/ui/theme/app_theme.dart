@@ -54,5 +54,12 @@ sealed class MyAppTheme {
 
     canvasColor: ConstantsColors.myCanvasColor,
     fontFamily: ConstantsFonts.fontFamilyTheme,
+
+    pageTransitionsTheme: const PageTransitionsTheme(
+      builders: {
+        TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+        TargetPlatform.android: ZoomPageTransitionsBuilder(),
+      },
+    ),
   );
 }

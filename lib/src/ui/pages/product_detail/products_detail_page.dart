@@ -7,31 +7,56 @@ class ProductsDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  
-   final ProductEntity productRegister = ModalRoute.of(context)!.settings.arguments as ProductEntity;
-
+    final ProductEntity productRegister = ModalRoute.of(context)!.settings.arguments as ProductEntity;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(productRegister.name),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: 300,
-              width: double.infinity,
-              child: Image.network(
-                productRegister.imageUrl,
-                fit: BoxFit.cover,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text(productRegister.name,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                  )),
+              background: Stack(
+                fit: StackFit.expand,
+                children: [
+                  Hero(
+                    tag: productRegister.id,
+                    child: Image.network(
+                      productRegister.imageUrl,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  const DecoratedBox(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(0, 0.8),
+                        end: Alignment(0, 0),
+                        colors: [
+                          Color.fromRGBO(0, 0, 0, 0.6),
+                          Color.fromRGBO(0, 0, 0, 0),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate([
             const SizedBox(height: 10),
-            Text(
-              'R\$ ${productRegister.price}',
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
+            Center(
+              child: Text(
+                'R\$ ${productRegister.price}',
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20,
+                ),
               ),
             ),
             const SizedBox(height: 10),
@@ -42,9 +67,9 @@ class ProductsDetailPage extends StatelessWidget {
                 productRegister.description,
                 textAlign: TextAlign.center,
               ),
-            )
-          ],
-        ),
+            ),
+          ])),
+        ],
       ),
     );
   }

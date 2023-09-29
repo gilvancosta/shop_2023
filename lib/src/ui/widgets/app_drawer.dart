@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_2023/src/domain/controllers/auth/auth_controller.dart';
+import 'package:shop_2023/src/ui/pages/order/orders_page.dart';
 
 import '../app_routes.dart';
+import '../pages/custom_route.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({Key? key}) : super(key: key);
@@ -34,6 +36,10 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(
                 AppRoutes.orders,
               );
+              /*    Navigator.of(context).pushReplacement(
+                CustomRoute(
+                  builder: (ctx) => const OrdersPage(),
+                ), */
             },
           ),
           const Divider(),
