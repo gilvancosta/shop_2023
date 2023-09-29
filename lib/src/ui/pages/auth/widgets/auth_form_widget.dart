@@ -13,7 +13,7 @@ class AuthFormWidget extends StatefulWidget {
   State<AuthFormWidget> createState() => _AuthFormWidgetState();
 }
 
-class _AuthFormWidgetState extends State<AuthFormWidget> {
+class _AuthFormWidgetState extends State<AuthFormWidget> with SingleTickerProviderStateMixin {
   AuthMode _authMode = AuthMode.login;
 
   final _formKey = GlobalKey<FormState>();
@@ -23,15 +23,49 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
 
   final Map<String, String> _authData = {'email': '', 'password': ''};
 
+  AnimationController? _controller;
+  Animation<double>? _opacityAnimation;
+  Animation<Offset>? _slideAnimation;
+
   bool _isLogin() => _authMode == AuthMode.login;
   bool _isSignup() => _authMode == AuthMode.signup;
+
+  @override
+  void initState() {
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+
+    _opacityAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _controller!,
+      curve: Curves.linear,
+    ));
+
+    _slideAnimation = Tween<Offset>(
+      begin: const Offset(0, -1.5),
+      end: const Offset(0, 0),
+    ).animate(CurvedAnimation(
+      parent: _controller!,
+      curve: Curves.linear,
+    ));
+
+    // _heightAnimation!.addListener(() => setState(() {}));
+
+    super.initState();
+  }
 
   void _switchAuthMode() {
     setState(() {
       if (_isLogin()) {
         _authMode = AuthMode.signup;
+        _controller!.forward();
       } else {
         _authMode = AuthMode.login;
+        _controller!.reverse();
       }
     });
   }
@@ -93,10 +127,14 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Container(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.linear,
         padding: const EdgeInsets.all(16),
-        height: _isLogin() ? 380 : 420,
-        width: deviceSize.width * 0.9,
+        height: _isLogin() ? 360 : 400,
+        // height: _heightAnimation!.value.height,
+        width: deviceSize.width * 0.8,
+
         child: Form(
           key: _formKey,
           child: Column(
@@ -128,19 +166,32 @@ class _AuthFormWidgetState extends State<AuthFormWidget> {
                 },
               ),
               const SizedBox(height: 20),
-              if (_isSignup())
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Confirmar Senha'),
-                  obscureText: true,
-                  validator: _isLogin()
-                      ? null
-                      : (password) {
-                          if (password != _passwordController.text) {
-                            return 'Senhas são diferentes!';
-                          }
-                          return null;
-                        },
+              AnimatedContainer(
+                constraints: BoxConstraints(
+                  minHeight: _isSignup() ? 60 : 0,
+                  maxHeight: _isSignup() ? 120 : 0,
                 ),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+                child: FadeTransition(
+                  opacity: _opacityAnimation!,
+                  child: SlideTransition(
+                    position: _slideAnimation!,
+                    child: TextFormField(
+                      decoration: const InputDecoration(labelText: 'Confirmar Senha'),
+                      obscureText: true,
+                      validator: _isLogin()
+                          ? null
+                          : (password) {
+                              if (password != _passwordController.text) {
+                                return 'Senhas são diferentes!';
+                              }
+                              return null;
+                            },
+                    ),
+                  ),
+                ),
+              ),
               const SizedBox(height: 20),
               if (_isLoading)
                 const CircularProgressIndicator()
